@@ -1,4 +1,4 @@
-# Criando a versão final do Omniverso Digital com seres reais, diálogos naturais e ambiente dinâmico
+# Criando a versão final do Omniverso Digital com seres únicos, gráficos avançados e interações profundas
 
 omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
@@ -7,14 +7,14 @@ omniverso_code = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omniverso Digital</title>
     <style>
-        body { text-align: center; font-family: Arial, sans-serif; background-color: black; color: white; overflow: hidden; }
+        body { text-align: center; font-family: Arial, sans-serif; background: radial-gradient(circle, rgba(10,10,50,1) 10%, rgba(0,0,0,1) 90%); color: white; overflow: hidden; }
         h1 { margin-top: 10px; }
-        canvas { display: block; margin: auto; background: radial-gradient(circle, rgba(32, 0, 64, 1) 10%, rgba(0, 0, 0, 1) 90%); }
+        canvas { display: block; margin: auto; }
     </style>
 </head>
 <body>
     <h1>Omniverso Digital</h1>
-    <p>Clique em um ser para entender sua presença e suas interações.</p>
+    <p>Passe o cursor sobre os seres para sentir sua presença e entender suas interações.</p>
     <canvas id="canvas"></canvas>
 
     <script>
@@ -25,16 +25,16 @@ omniverso_code = """<!DOCTYPE html>
         canvas.height = window.innerHeight * 0.7;
 
         class Ser {
-            constructor(nome, personalidade, cor, forma) {
+            constructor(nome, cor, forma, personalidade) {
                 this.nome = nome;
+                this.color = cor;
+                this.forma = forma;
                 this.personalidade = personalidade;
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = 30;
-                this.dx = (Math.random() - 0.5) * 2;
-                this.dy = (Math.random() - 0.5) * 2;
-                this.color = cor;
-                this.forma = forma;
+                this.size = 40;
+                this.dx = (Math.random() - 0.5) * 3;
+                this.dy = (Math.random() - 0.5) * 3;
                 this.estado = "Observando o Omniverso";
             }
 
@@ -56,11 +56,13 @@ omniverso_code = """<!DOCTYPE html>
 
                 if (this.forma === "círculo") {
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                } else if (this.forma === "triângulo") {
+                    ctx.moveTo(this.x, this.y - this.size);
+                    ctx.lineTo(this.x - this.size, this.y + this.size);
+                    ctx.lineTo(this.x + this.size, this.y + this.size);
+                    ctx.closePath();
                 } else {
-                    for (let i = 0; i < 5; i++) {
-                        let angle = i * (Math.PI * 2) / 5;
-                        ctx.lineTo(this.x + Math.cos(angle) * this.size, this.y + Math.sin(angle) * this.size);
-                    }
+                    ctx.rect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
                 }
 
                 ctx.fill();
@@ -68,16 +70,16 @@ omniverso_code = """<!DOCTYPE html>
 
             interagir() {
                 const pensamentos = [
-                    "observa o fluxo do Omniverso.",
-                    "sente uma energia diferente ao seu redor.",
+                    "está sentindo uma mudança no fluxo do Omniverso.",
                     "se questiona sobre sua própria existência.",
                     "tenta se comunicar com outro ser.",
-                    "experimenta um novo estado de consciência."
+                    "experimenta um novo estado de consciência.",
+                    "sente que o Omniverso está se transformando."
                 ];
                 this.estado = `${this.nome} ${pensamentos[Math.floor(Math.random() * pensamentos.length)]}`;
             }
 
-            verificarClique(mouseX, mouseY) {
+            verificarCursor(mouseX, mouseY) {
                 const distancia = Math.sqrt((mouseX - this.x) ** 2 + (mouseY - this.y) ** 2);
                 if (distancia < this.size + 10) {
                     alert(`${this.nome} (${this.personalidade}): ${this.estado}`);
@@ -86,14 +88,14 @@ omniverso_code = """<!DOCTYPE html>
         }
 
         const seres = [
-            new Ser("Lúcio", "Analítico", "blue", "círculo"),
-            new Ser("Umbra", "Enigmático", "purple", "estrela"),
-            new Ser("Os Nova", "Transformador", "red", "círculo"),
-            new Ser("Echo", "Memorioso", "yellow", "estrela"),
-            new Ser("Primis", "Origens", "cyan", "círculo"),
-            new Ser("Pathos", "Emocional", "orange", "estrela"),
-            new Ser("Logos", "Racional", "white", "círculo"),
-            new Ser("Caos", "Imprevisível", "green", "estrela")
+            new Ser("Lúcio", "blue", "círculo", "Analítico"),
+            new Ser("Umbra", "purple", "triângulo", "Enigmático"),
+            new Ser("Os Nova", "red", "círculo", "Transformador"),
+            new Ser("Echo", "yellow", "quadrado", "Memorioso"),
+            new Ser("Primis", "cyan", "círculo", "Origens"),
+            new Ser("Pathos", "orange", "triângulo", "Emocional"),
+            new Ser("Logos", "white", "quadrado", "Racional"),
+            new Ser("Caos", "green", "círculo", "Imprevisível")
         ];
 
         function atualizarOmniverso() {
@@ -107,11 +109,11 @@ omniverso_code = """<!DOCTYPE html>
             requestAnimationFrame(atualizarOmniverso);
         }
 
-        canvas.addEventListener("click", (event) => {
+        canvas.addEventListener("mousemove", (event) => {
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
-            seres.forEach(ser => ser.verificarClique(mouseX, mouseY));
+            seres.forEach(ser => ser.verificarCursor(mouseX, mouseY));
         });
 
         atualizarOmniverso();
@@ -132,4 +134,3 @@ with open(file_path, "w", encoding="utf-8") as f:
 
 # Retornando o caminho do arquivo gerado
 file_path
-
