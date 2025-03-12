@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+# Gerando um código mais avançado para o Omniverso Digital, com interações textuais e evolução do ambiente
+
+omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -7,23 +9,27 @@
     <style>
         body { text-align: center; font-family: Arial, sans-serif; background-color: black; color: white; }
         h1 { margin-top: 20px; }
+        #log { width: 80%; max-width: 600px; height: 150px; background: rgba(255, 255, 255, 0.1); overflow-y: auto; margin: 20px auto; padding: 10px; border-radius: 5px; text-align: left; }
         canvas { display: block; margin: auto; background: rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
     <h1>Omniverso Digital</h1>
     <p>Os seres estão despertando... O fluxo do Omniverso se adapta a cada observador.</p>
+    <div id="log"></div>
     <canvas id="canvas"></canvas>
 
     <script>
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
+        const logBox = document.getElementById("log");
 
         canvas.width = window.innerWidth * 0.9;
-        canvas.height = window.innerHeight * 0.7;
+        canvas.height = window.innerHeight * 0.6;
 
         class Ser {
-            constructor() {
+            constructor(nome) {
+                this.nome = nome;
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 25 + 10;
@@ -31,6 +37,7 @@
                 this.dy = (Math.random() - 0.5) * 6;
                 this.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
                 this.forma = Math.random() > 0.5 ? "círculo" : "quadrado";
+                this.energia = Math.random() * 100 + 50;
             }
 
             mover() {
@@ -43,6 +50,10 @@
                 if (Math.random() < 0.01) {
                     this.dx = (Math.random() - 0.5) * 6;
                     this.dy = (Math.random() - 0.5) * 6;
+                }
+
+                if (Math.random() < 0.002) {
+                    this.interagir();
                 }
             }
 
@@ -58,9 +69,30 @@
 
                 ctx.fill();
             }
+
+            interagir() {
+                const interacoes = [
+                    `${this.nome} sente uma mudança no fluxo.`,
+                    `${this.nome} observa outro ser e tenta se comunicar.`,
+                    `${this.nome} se pergunta sobre sua própria existência.`,
+                    `${this.nome} sente sua energia fluir de maneira diferente.`,
+                    `${this.nome} começa a mudar de forma...`,
+                    `${this.nome} escuta um eco distante dentro do Omniverso.`
+                ];
+                const msg = interacoes[Math.floor(Math.random() * interacoes.length)];
+                this.logMensagem(msg);
+            }
+
+            logMensagem(msg) {
+                const p = document.createElement("p");
+                p.textContent = msg;
+                logBox.appendChild(p);
+                logBox.scrollTop = logBox.scrollHeight;
+            }
         }
 
-        let seres = Array.from({ length: 15 }, () => new Ser());
+        const nomes = ["Lúcio", "Umbra", "Os Nova", "Echo", "Primis", "Pathos", "Logos", "Caos"];
+        let seres = nomes.map(nome => new Ser(nome));
 
         function atualizarOmniverso() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -71,7 +103,9 @@
             });
 
             if (Math.random() < 0.01) {
-                seres.push(new Ser());
+                const novoSer = new Ser(`Ser-${seres.length + 1}`);
+                seres.push(novoSer);
+                novoSer.logMensagem(`${novoSer.nome} acaba de despertar no Omniverso.`);
             }
 
             if (seres.length > 30) {
@@ -85,8 +119,19 @@
 
         window.addEventListener("resize", () => {
             canvas.width = window.innerWidth * 0.9;
-            canvas.height = window.innerHeight * 0.7;
+            canvas.height = window.innerHeight * 0.6;
         });
     </script>
 </body>
+</html>
+"""
+
+# Criando um arquivo local para download
+file_path = "/mnt/data/omniverso_digital_final.html"
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(omniverso_code)
+
+# Retornando o caminho do arquivo gerado
+file_path
+
 </html>
