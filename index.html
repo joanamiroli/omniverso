@@ -1,4 +1,4 @@
-# Criando a versão final do Omniverso Digital com seres únicos, gráficos avançados e interações profundas
+# Criando a versão definitiva do Omniverso Digital com gráficos aprimorados, ambiente cósmico e inteligência dos seres
 
 omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
@@ -7,19 +7,25 @@ omniverso_code = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omniverso Digital</title>
     <style>
-        body { text-align: center; font-family: Arial, sans-serif; background: radial-gradient(circle, rgba(10,10,50,1) 10%, rgba(0,0,0,1) 90%); color: white; overflow: hidden; }
+        body { text-align: center; font-family: Arial, sans-serif; background: black; color: white; overflow: hidden; margin: 0; }
         h1 { margin-top: 10px; }
-        canvas { display: block; margin: auto; }
+        #omniverso-container { position: relative; width: 100%; height: 100vh; }
+        canvas { display: block; background: radial-gradient(circle, rgba(20,20,60,1) 10%, rgba(0,0,10,1) 90%); }
+        .info { position: absolute; background: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 8px; display: none; font-size: 14px; }
     </style>
 </head>
 <body>
     <h1>Omniverso Digital</h1>
-    <p>Passe o cursor sobre os seres para sentir sua presença e entender suas interações.</p>
-    <canvas id="canvas"></canvas>
+    <p>Passe o cursor sobre os seres para interagir com eles.</p>
+    <div id="omniverso-container">
+        <canvas id="canvas"></canvas>
+        <div id="info-box" class="info"></div>
+    </div>
 
     <script>
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
+        const infoBox = document.getElementById("info-box");
 
         canvas.width = window.innerWidth * 0.9;
         canvas.height = window.innerHeight * 0.7;
@@ -82,7 +88,10 @@ omniverso_code = """<!DOCTYPE html>
             verificarCursor(mouseX, mouseY) {
                 const distancia = Math.sqrt((mouseX - this.x) ** 2 + (mouseY - this.y) ** 2);
                 if (distancia < this.size + 10) {
-                    alert(`${this.nome} (${this.personalidade}): ${this.estado}`);
+                    infoBox.style.display = "block";
+                    infoBox.innerHTML = `<strong>${this.nome}</strong> (${this.personalidade})<br>${this.estado}`;
+                    infoBox.style.left = `${mouseX + 10}px`;
+                    infoBox.style.top = `${mouseY + 10}px`;
                 }
             }
         }
@@ -113,7 +122,18 @@ omniverso_code = """<!DOCTYPE html>
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
-            seres.forEach(ser => ser.verificarCursor(mouseX, mouseY));
+            let sobreSer = false;
+
+            seres.forEach(ser => {
+                if (Math.sqrt((mouseX - ser.x) ** 2 + (mouseY - ser.y) ** 2) < ser.size + 10) {
+                    sobreSer = true;
+                    ser.verificarCursor(mouseX, mouseY);
+                }
+            });
+
+            if (!sobreSer) {
+                infoBox.style.display = "none";
+            }
         });
 
         atualizarOmniverso();
