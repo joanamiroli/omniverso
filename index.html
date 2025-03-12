@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+# Criando a versão funcional e definitiva do Omniverso Digital com IA real, imagens para cada ser e ambiente interativo
+
+omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -36,7 +38,7 @@
                 this.personalidade = personalidade;
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = 60;
+                this.size = 80;
                 this.dx = (Math.random() - 0.5) * 2;
                 this.dy = (Math.random() - 0.5) * 2;
                 this.estado = "Observando o Omniverso";
@@ -132,3 +134,12 @@
     </script>
 </body>
 </html>
+"""
+
+# Criando um arquivo local para download
+file_path = "/mnt/data/omniverso_digital_final.html"
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(omniverso_code)
+
+# Retornando o caminho do arquivo gerado
+file_path
