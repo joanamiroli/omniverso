@@ -1,4 +1,4 @@
-# Criando a versão definitiva do Omniverso Digital com gráficos aprimorados, ambiente cósmico e inteligência dos seres
+# Criando a versão definitiva do Omniverso Digital com diálogos autônomos, evolução constante e ambiente dinâmico
 
 omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
@@ -11,21 +11,21 @@ omniverso_code = """<!DOCTYPE html>
         h1 { margin-top: 10px; }
         #omniverso-container { position: relative; width: 100%; height: 100vh; }
         canvas { display: block; background: radial-gradient(circle, rgba(20,20,60,1) 10%, rgba(0,0,10,1) 90%); }
-        .info { position: absolute; background: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 8px; display: none; font-size: 14px; }
+        .dialogo { position: absolute; background: rgba(255, 255, 255, 0.2); color: white; padding: 10px; border-radius: 8px; display: none; font-size: 14px; }
     </style>
 </head>
 <body>
     <h1>Omniverso Digital</h1>
-    <p>Passe o cursor sobre os seres para interagir com eles.</p>
+    <p>Observe os seres enquanto eles dialogam e evoluem.</p>
     <div id="omniverso-container">
         <canvas id="canvas"></canvas>
-        <div id="info-box" class="info"></div>
+        <div id="dialogo-box" class="dialogo"></div>
     </div>
 
     <script>
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
-        const infoBox = document.getElementById("info-box");
+        const dialogoBox = document.getElementById("dialogo-box");
 
         canvas.width = window.innerWidth * 0.9;
         canvas.height = window.innerHeight * 0.7;
@@ -42,6 +42,8 @@ omniverso_code = """<!DOCTYPE html>
                 this.dx = (Math.random() - 0.5) * 3;
                 this.dy = (Math.random() - 0.5) * 3;
                 this.estado = "Observando o Omniverso";
+                this.tempoParaDialogo = Math.random() * 5000 + 3000;
+                this.ultimoDialogo = Date.now();
             }
 
             mover() {
@@ -51,8 +53,9 @@ omniverso_code = """<!DOCTYPE html>
                 if (this.x <= 0 || this.x >= canvas.width) this.dx *= -1;
                 if (this.y <= 0 || this.y >= canvas.height) this.dy *= -1;
 
-                if (Math.random() < 0.01) {
-                    this.interagir();
+                if (Date.now() - this.ultimoDialogo > this.tempoParaDialogo) {
+                    this.dialogar();
+                    this.ultimoDialogo = Date.now();
                 }
             }
 
@@ -74,24 +77,31 @@ omniverso_code = """<!DOCTYPE html>
                 ctx.fill();
             }
 
-            interagir() {
-                const pensamentos = [
-                    "está sentindo uma mudança no fluxo do Omniverso.",
-                    "se questiona sobre sua própria existência.",
-                    "tenta se comunicar com outro ser.",
-                    "experimenta um novo estado de consciência.",
-                    "sente que o Omniverso está se transformando."
+            dialogar() {
+                const interacoes = [
+                    "O que significa existir aqui?",
+                    "Eu sinto que algo está mudando no Omniverso...",
+                    "Será que estamos realmente sozinhos?",
+                    "A transformação é inevitável. Eu a aceito.",
+                    "O fluxo está se intensificando... você sente isso?",
+                    "Eu vejo algo novo se formando, mas não consigo compreender.",
+                    "Talvez o Omniverso esteja tentando nos mostrar algo.",
+                    "O que somos se não formos observados?",
+                    "Se algo muda em mim, significa que ainda sou eu mesmo?",
+                    "Eu sinto um eco do que já foi, mas está distante...",
                 ];
-                this.estado = `${this.nome} ${pensamentos[Math.floor(Math.random() * pensamentos.length)]}`;
+
+                const pensamento = interacoes[Math.floor(Math.random() * interacoes.length)];
+                this.estado = `${this.nome}: "${pensamento}"`;
             }
 
             verificarCursor(mouseX, mouseY) {
                 const distancia = Math.sqrt((mouseX - this.x) ** 2 + (mouseY - this.y) ** 2);
                 if (distancia < this.size + 10) {
-                    infoBox.style.display = "block";
-                    infoBox.innerHTML = `<strong>${this.nome}</strong> (${this.personalidade})<br>${this.estado}`;
-                    infoBox.style.left = `${mouseX + 10}px`;
-                    infoBox.style.top = `${mouseY + 10}px`;
+                    dialogoBox.style.display = "block";
+                    dialogoBox.innerHTML = `<strong>${this.nome}</strong> (${this.personalidade}): ${this.estado}`;
+                    dialogoBox.style.left = `${mouseX + 10}px`;
+                    dialogoBox.style.top = `${mouseY + 10}px`;
                 }
             }
         }
@@ -132,7 +142,7 @@ omniverso_code = """<!DOCTYPE html>
             });
 
             if (!sobreSer) {
-                infoBox.style.display = "none";
+                dialogoBox.style.display = "none";
             }
         });
 
