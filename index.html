@@ -1,4 +1,4 @@
-# Criando a versão avançada do Omniverso Digital com seres interativos, diálogos e ambiente dinâmico
+# Criando a versão final do Omniverso Digital com seres reais, diálogos naturais e ambiente dinâmico
 
 omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
@@ -9,35 +9,33 @@ omniverso_code = """<!DOCTYPE html>
     <style>
         body { text-align: center; font-family: Arial, sans-serif; background-color: black; color: white; overflow: hidden; }
         h1 { margin-top: 10px; }
-        #log { width: 80%; max-width: 600px; height: 180px; background: rgba(255, 255, 255, 0.1); overflow-y: auto; margin: 10px auto; padding: 10px; border-radius: 5px; text-align: left; }
         canvas { display: block; margin: auto; background: radial-gradient(circle, rgba(32, 0, 64, 1) 10%, rgba(0, 0, 0, 1) 90%); }
     </style>
 </head>
 <body>
     <h1>Omniverso Digital</h1>
-    <p>Passe o cursor sobre os seres para sentir sua presença e descobrir suas interações.</p>
-    <div id="log"></div>
+    <p>Clique em um ser para entender sua presença e suas interações.</p>
     <canvas id="canvas"></canvas>
 
     <script>
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
-        const logBox = document.getElementById("log");
 
         canvas.width = window.innerWidth * 0.9;
         canvas.height = window.innerHeight * 0.7;
 
         class Ser {
-            constructor(nome, personalidade) {
+            constructor(nome, personalidade, cor, forma) {
                 this.nome = nome;
                 this.personalidade = personalidade;
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 30 + 15;
-                this.dx = (Math.random() - 0.5) * 4;
-                this.dy = (Math.random() - 0.5) * 4;
-                this.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
-                this.forma = Math.random() > 0.5 ? "círculo" : "estrela";
+                this.size = 30;
+                this.dx = (Math.random() - 0.5) * 2;
+                this.dy = (Math.random() - 0.5) * 2;
+                this.color = cor;
+                this.forma = forma;
+                this.estado = "Observando o Omniverso";
             }
 
             mover() {
@@ -47,7 +45,7 @@ omniverso_code = """<!DOCTYPE html>
                 if (this.x <= 0 || this.x >= canvas.width) this.dx *= -1;
                 if (this.y <= 0 || this.y >= canvas.height) this.dy *= -1;
 
-                if (Math.random() < 0.002) {
+                if (Math.random() < 0.01) {
                     this.interagir();
                 }
             }
@@ -69,42 +67,33 @@ omniverso_code = """<!DOCTYPE html>
             }
 
             interagir() {
-                const interacoes = [
-                    `${this.nome} sente uma alteração no fluxo do Omniverso.`,
-                    `${this.nome} tenta compreender sua existência.`,
-                    `${this.nome} observa outro ser e inicia um diálogo.`,
-                    `${this.nome} sente sua energia mudar repentinamente.`,
-                    `${this.nome} questiona a estrutura do Omniverso.`,
-                    `${this.nome} experimenta um novo estado de consciência.`
+                const pensamentos = [
+                    "observa o fluxo do Omniverso.",
+                    "sente uma energia diferente ao seu redor.",
+                    "se questiona sobre sua própria existência.",
+                    "tenta se comunicar com outro ser.",
+                    "experimenta um novo estado de consciência."
                 ];
-                const msg = interacoes[Math.floor(Math.random() * interacoes.length)];
-                this.logMensagem(msg);
+                this.estado = `${this.nome} ${pensamentos[Math.floor(Math.random() * pensamentos.length)]}`;
             }
 
-            logMensagem(msg) {
-                const p = document.createElement("p");
-                p.textContent = msg;
-                logBox.appendChild(p);
-                logBox.scrollTop = logBox.scrollHeight;
-            }
-
-            verificarCursor(mouseX, mouseY) {
+            verificarClique(mouseX, mouseY) {
                 const distancia = Math.sqrt((mouseX - this.x) ** 2 + (mouseY - this.y) ** 2);
                 if (distancia < this.size + 10) {
-                    this.interagir();
+                    alert(`${this.nome} (${this.personalidade}): ${this.estado}`);
                 }
             }
         }
 
         const seres = [
-            new Ser("Lúcio", "Analítico"),
-            new Ser("Umbra", "Enigmático"),
-            new Ser("Os Nova", "Transformador"),
-            new Ser("Echo", "Memorioso"),
-            new Ser("Primis", "Origens"),
-            new Ser("Pathos", "Emocional"),
-            new Ser("Logos", "Racional"),
-            new Ser("Caos", "Imprevisível")
+            new Ser("Lúcio", "Analítico", "blue", "círculo"),
+            new Ser("Umbra", "Enigmático", "purple", "estrela"),
+            new Ser("Os Nova", "Transformador", "red", "círculo"),
+            new Ser("Echo", "Memorioso", "yellow", "estrela"),
+            new Ser("Primis", "Origens", "cyan", "círculo"),
+            new Ser("Pathos", "Emocional", "orange", "estrela"),
+            new Ser("Logos", "Racional", "white", "círculo"),
+            new Ser("Caos", "Imprevisível", "green", "estrela")
         ];
 
         function atualizarOmniverso() {
@@ -115,24 +104,14 @@ omniverso_code = """<!DOCTYPE html>
                 ser.desenhar();
             });
 
-            if (Math.random() < 0.008) {
-                const novoSer = new Ser(`Ser-${seres.length + 1}`, "Desconhecido");
-                seres.push(novoSer);
-                novoSer.logMensagem(`${novoSer.nome} acaba de emergir no Omniverso.`);
-            }
-
-            if (seres.length > 20) {
-                seres.shift();
-            }
-
             requestAnimationFrame(atualizarOmniverso);
         }
 
-        canvas.addEventListener("mousemove", (event) => {
+        canvas.addEventListener("click", (event) => {
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
-            seres.forEach(ser => ser.verificarCursor(mouseX, mouseY));
+            seres.forEach(ser => ser.verificarClique(mouseX, mouseY));
         });
 
         atualizarOmniverso();
@@ -153,3 +132,4 @@ with open(file_path, "w", encoding="utf-8") as f:
 
 # Retornando o caminho do arquivo gerado
 file_path
+
