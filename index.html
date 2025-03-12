@@ -1,4 +1,4 @@
-# Criando a versão funcional e definitiva do Omniverso Digital com IA real, imagens para cada ser e ambiente interativo
+# Criando a versão funcional do Omniverso Digital com os seres visíveis e interativos
 
 omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
@@ -31,14 +31,14 @@ omniverso_code = """<!DOCTYPE html>
         canvas.height = window.innerHeight * 0.7;
 
         class Ser {
-            constructor(nome, imagem, personalidade) {
+            constructor(nome, imagemSrc, personalidade) {
                 this.nome = nome;
                 this.imagem = new Image();
-                this.imagem.src = imagem;
+                this.imagem.src = imagemSrc;
                 this.personalidade = personalidade;
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = 80;
+                this.size = 100;
                 this.dx = (Math.random() - 0.5) * 2;
                 this.dy = (Math.random() - 0.5) * 2;
                 this.estado = "Observando o Omniverso";
@@ -86,14 +86,14 @@ omniverso_code = """<!DOCTYPE html>
         }
 
         const seres = [
-            new Ser("Lúcio", "https://example.com/lucio.png", "Analítico"),
-            new Ser("Umbra", "https://example.com/umbra.png", "Enigmático"),
-            new Ser("Os Nova", "https://example.com/osnova.png", "Transformador"),
-            new Ser("Echo", "https://example.com/echo.png", "Memorioso"),
-            new Ser("Primis", "https://example.com/primis.png", "Origens"),
-            new Ser("Pathos", "https://example.com/pathos.png", "Emocional"),
-            new Ser("Logos", "https://example.com/logos.png", "Racional"),
-            new Ser("Caos", "https://example.com/caos.png", "Imprevisível")
+            new Ser("Lúcio", "https://via.placeholder.com/100/0000FF/FFFFFF?text=L", "Analítico"),
+            new Ser("Umbra", "https://via.placeholder.com/100/800080/FFFFFF?text=U", "Enigmático"),
+            new Ser("Os Nova", "https://via.placeholder.com/100/FF0000/FFFFFF?text=ON", "Transformador"),
+            new Ser("Echo", "https://via.placeholder.com/100/FFFF00/000000?text=E", "Memorioso"),
+            new Ser("Primis", "https://via.placeholder.com/100/00FFFF/000000?text=P", "Origens"),
+            new Ser("Pathos", "https://via.placeholder.com/100/FFA500/000000?text=PA", "Emocional"),
+            new Ser("Logos", "https://via.placeholder.com/100/FFFFFF/000000?text=LO", "Racional"),
+            new Ser("Caos", "https://via.placeholder.com/100/008000/FFFFFF?text=C", "Imprevisível")
         ];
 
         function atualizarOmniverso() {
