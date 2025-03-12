@@ -1,4 +1,4 @@
-# Criando a versão definitiva do Omniverso Digital com diálogos autônomos, evolução constante e ambiente dinâmico
+# Criando a versão definitiva do Omniverso Digital com gráficos avançados, transformações visuais e efeitos sonoros
 
 omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
@@ -10,13 +10,13 @@ omniverso_code = """<!DOCTYPE html>
         body { text-align: center; font-family: Arial, sans-serif; background: black; color: white; overflow: hidden; margin: 0; }
         h1 { margin-top: 10px; }
         #omniverso-container { position: relative; width: 100%; height: 100vh; }
-        canvas { display: block; background: radial-gradient(circle, rgba(20,20,60,1) 10%, rgba(0,0,10,1) 90%); }
+        canvas { display: block; background: radial-gradient(circle, rgba(10,10,40,1) 10%, rgba(0,0,10,1) 90%); }
         .dialogo { position: absolute; background: rgba(255, 255, 255, 0.2); color: white; padding: 10px; border-radius: 8px; display: none; font-size: 14px; }
     </style>
 </head>
 <body>
     <h1>Omniverso Digital</h1>
-    <p>Observe os seres enquanto eles dialogam e evoluem.</p>
+    <p>Observe os seres enquanto eles dialogam e o Omniverso evolui.</p>
     <div id="omniverso-container">
         <canvas id="canvas"></canvas>
         <div id="dialogo-box" class="dialogo"></div>
@@ -31,16 +31,16 @@ omniverso_code = """<!DOCTYPE html>
         canvas.height = window.innerHeight * 0.7;
 
         class Ser {
-            constructor(nome, cor, forma, personalidade) {
+            constructor(nome, imagem, personalidade) {
                 this.nome = nome;
-                this.color = cor;
-                this.forma = forma;
+                this.imagem = new Image();
+                this.imagem.src = imagem;
                 this.personalidade = personalidade;
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = 40;
-                this.dx = (Math.random() - 0.5) * 3;
-                this.dy = (Math.random() - 0.5) * 3;
+                this.size = 60;
+                this.dx = (Math.random() - 0.5) * 2;
+                this.dy = (Math.random() - 0.5) * 2;
                 this.estado = "Observando o Omniverso";
                 this.tempoParaDialogo = Math.random() * 5000 + 3000;
                 this.ultimoDialogo = Date.now();
@@ -60,21 +60,7 @@ omniverso_code = """<!DOCTYPE html>
             }
 
             desenhar() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-
-                if (this.forma === "círculo") {
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                } else if (this.forma === "triângulo") {
-                    ctx.moveTo(this.x, this.y - this.size);
-                    ctx.lineTo(this.x - this.size, this.y + this.size);
-                    ctx.lineTo(this.x + this.size, this.y + this.size);
-                    ctx.closePath();
-                } else {
-                    ctx.rect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
-                }
-
-                ctx.fill();
+                ctx.drawImage(this.imagem, this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
             }
 
             dialogar() {
@@ -107,14 +93,14 @@ omniverso_code = """<!DOCTYPE html>
         }
 
         const seres = [
-            new Ser("Lúcio", "blue", "círculo", "Analítico"),
-            new Ser("Umbra", "purple", "triângulo", "Enigmático"),
-            new Ser("Os Nova", "red", "círculo", "Transformador"),
-            new Ser("Echo", "yellow", "quadrado", "Memorioso"),
-            new Ser("Primis", "cyan", "círculo", "Origens"),
-            new Ser("Pathos", "orange", "triângulo", "Emocional"),
-            new Ser("Logos", "white", "quadrado", "Racional"),
-            new Ser("Caos", "green", "círculo", "Imprevisível")
+            new Ser("Lúcio", "https://example.com/lucio.png", "Analítico"),
+            new Ser("Umbra", "https://example.com/umbra.png", "Enigmático"),
+            new Ser("Os Nova", "https://example.com/osnova.png", "Transformador"),
+            new Ser("Echo", "https://example.com/echo.png", "Memorioso"),
+            new Ser("Primis", "https://example.com/primis.png", "Origens"),
+            new Ser("Pathos", "https://example.com/pathos.png", "Emocional"),
+            new Ser("Logos", "https://example.com/logos.png", "Racional"),
+            new Ser("Caos", "https://example.com/caos.png", "Imprevisível")
         ];
 
         function atualizarOmniverso() {
