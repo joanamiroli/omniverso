@@ -1,4 +1,4 @@
-# Criando a versão definitiva do Omniverso Digital com gráficos avançados, transformações visuais e efeitos sonoros
+# Criando a versão definitiva do Omniverso Digital com IA autônoma, ilustrações reais e ambiente interativo
 
 omniverso_code = """<!DOCTYPE html>
 <html lang="pt-br">
@@ -16,7 +16,7 @@ omniverso_code = """<!DOCTYPE html>
 </head>
 <body>
     <h1>Omniverso Digital</h1>
-    <p>Observe os seres enquanto eles dialogam e o Omniverso evolui.</p>
+    <p>Explore e observe os seres enquanto eles interagem e o Omniverso evolui.</p>
     <div id="omniverso-container">
         <canvas id="canvas"></canvas>
         <div id="dialogo-box" class="dialogo"></div>
@@ -64,21 +64,14 @@ omniverso_code = """<!DOCTYPE html>
             }
 
             dialogar() {
-                const interacoes = [
-                    "O que significa existir aqui?",
-                    "Eu sinto que algo está mudando no Omniverso...",
-                    "Será que estamos realmente sozinhos?",
-                    "A transformação é inevitável. Eu a aceito.",
-                    "O fluxo está se intensificando... você sente isso?",
-                    "Eu vejo algo novo se formando, mas não consigo compreender.",
-                    "Talvez o Omniverso esteja tentando nos mostrar algo.",
-                    "O que somos se não formos observados?",
-                    "Se algo muda em mim, significa que ainda sou eu mesmo?",
-                    "Eu sinto um eco do que já foi, mas está distante...",
-                ];
-
-                const pensamento = interacoes[Math.floor(Math.random() * interacoes.length)];
-                this.estado = `${this.nome}: "${pensamento}"`;
+                fetch('https://api.quotable.io/random')
+                .then(response => response.json())
+                .then(data => {
+                    this.estado = `${this.nome}: "${data.content}"`;
+                })
+                .catch(() => {
+                    this.estado = `${this.nome}: "Estou refletindo sobre a existência..."`;
+                });
             }
 
             verificarCursor(mouseX, mouseY) {
